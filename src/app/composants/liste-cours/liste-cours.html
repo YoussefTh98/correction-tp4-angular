@@ -7,9 +7,10 @@
 </div> 
 <section class="liste-cours"> 
   @for (c of cours | filtreCours:recherche | triCours:tri; track c.titre) { 
+    <a [routerLink]="['/cours', c.id]">Voir le détail</a> 
     <article class="carte-cours" [class.actif]="c === coursActif" 
 (click)="selectionner(c)"> 
-      <h2>{{ c.titre }}</h2> 
+      <h2>{{ c.titre  | tronquer:20 }}</h2> 
         @switch (c.categorie) {
         @case ('Front-end') {
           <span class="badge badge--frontend">{{ c.categorie | uppercase }}</span>
@@ -26,7 +27,7 @@
       }
       <p>Durée : {{ c.duree }}</p> 
       <p>{{ c.places | placesRestantes:10}}</p> 
-      <p>{{ c.titre | tronquer:20 }}</p>
+      <p>{{ c.titre}}</p>
     </article> 
   } @empty { 
     <p class="liste-vide">Aucun cours ne correspond à la recherche.</p> 

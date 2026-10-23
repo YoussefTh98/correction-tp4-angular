@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core'; 
-import { Cours } from '../composants/liste-cours/liste-cours'; 
+import { Cours } from '../donnees/cours';
   
 @Pipe({ name: 'triCours' }) 
 export class TriCoursPipe implements PipeTransform { // implémente l'interface PipeTransform pour créer un pipe de tri de cours

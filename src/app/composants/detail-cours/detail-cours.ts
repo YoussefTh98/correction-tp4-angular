@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Cours } from '../liste-cours/liste-cours';
+import { Cours } from '../../donnees/cours';
 
 @Component({
   selector: 'app-detail-cours',
