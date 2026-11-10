@@ -1,0 +1,77 @@
+@if (cours) { 
+  <h1>Inscription : {{ cours.titre }}</h1> 
+  @if (confirmation) { 
+    <p class="succes">{{ confirmation }}</p> 
+  } 
+  <form [formGroup]="form" (ngSubmit)="envoyer()" novalidate> 
+    <div class="champ"> 
+      <label for="nom">Nom complet</label> 
+      <input id="nom" formControlName="nom"> 
+       @if (nom.invalid && nom.touched) { 
+        <p class="erreur"> 
+        @if (nom.errors?.['required']) { Le nom est obligatoire. } 
+        @else if (nom.errors?.['nomComplet']) { Indiquez votre prénom et votre nom. } 
+  </p> 
+}
+    </div> 
+  
+    <div class="champ"> 
+      <label for="email">Adresse e-mail</label> 
+      <input id="email" type="email" formControlName="email"> 
+        @if (email.invalid && email.touched) { 
+            <p class="erreur"> 
+            @if (email.errors?.['required']) { L'adresse e-mail est obligatoire. } 
+            @else if (email.errors?.['email']) { Format d'adresse invalide. } 
+  </p> 
+} 
+    </div> 
+  
+    <div class="champ"> 
+      <label for="telephone">Téléphone (facultatif)</label> 
+      <input id="telephone" formControlName="telephone"> 
+      <!-- après l'input telephone --> 
+    @if (telephone.invalid && telephone.touched) { 
+        <p class="erreur">Le numéro doit contenir exactement 8 chiffres.</p> 
+} 
+  
+    </div> 
+  
+    <div class="champ"> 
+      <label for="niveau">Votre niveau</label> 
+      <select id="niveau" formControlName="niveau"> 
+        <option value="">-- Choisir --</option> 
+        <option value="debutant">Débutant</option> 
+        <option value="intermediaire">Intermédiaire</option> 
+        <option value="avance">Avancé</option> 
+      </select> 
+      <!-- après le select niveau --> 
+    @if (niveau.invalid && niveau.touched) { 
+        <p class="erreur">Choisissez votre niveau.</p> 
+} 
+    </div> 
+  
+    <div class="champ"> 
+      <label for="motivation">Pourquoi ce cours ?</label> 
+      <textarea id="motivation" rows="4" formControlName="motivation"></textarea> 
+      <!-- après le textarea motivation --> 
+        @if (motivation.invalid && motivation.touched) { 
+            <p class="erreur"> 
+            @if (motivation.errors?.['required']) { La motivation est obligatoire. } 
+            @else if (motivation.errors?.['minlength']) { 
+                 Au moins 20 caractères (encore {{ 20 - (motivation.value?.length ?? 0) }}). 
+    } 
+  </p> 
+}
+    </div> 
+    <div class="champ"> 
+      <label><input type="checkbox" formControlName="conditions"> J'accepte les conditions d'inscription</label>
+    </div>
+    <button type="submit">Valider mon inscription</button> 
+  </form> 
+    @if (conditions.invalid && conditions.touched) { 
+        <p class="erreur">Vous devez accepter les conditions.</p>}
+}
+ @else { 
+  <p>Ce cours n'existe pas.</p> 
+} 
+<a routerLink="/cours">← Retour au catalogue</a> 

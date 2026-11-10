@@ -1,0 +1,17 @@
+.champ { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; max-width: 480px; } 
+.champ label { font-weight: 700; color: #1b1b2f; } 
+.champ input, .champ select, .champ textarea { 
+  padding: 8px 10px; border: 1px solid #dadae3; border-radius: 6px; font: inherit; 
+} 
+.champ input.ng-invalid.ng-touched, 
+.champ select.ng-invalid.ng-touched, 
+.champ textarea.ng-invalid.ng-touched { border-color: #dd0031; } 
+.champ input.ng-valid.ng-touched, 
+.champ textarea.ng-valid.ng-touched { border-color: #1f8a5b; } 
+.erreur { color: #c3002f; font-size: 0.85rem; margin: 0; } 
+.succes { background: #e8f6ee; border-left: 4px solid #1f8a5b; padding: 12px 16px; 
+max-width: 480px; } 
+button[type='submit'] { 
+  background: #dd0031; color: #fff; border: 0; border-radius: 6px; 
+  padding: 10px 20px; font-weight: 700; cursor: pointer; 
+} 
