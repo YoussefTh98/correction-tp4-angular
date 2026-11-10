@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, inject } from '@angular/core'; 
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'; 
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router'; 
 import { COURS, Cours } from '../../donnees/cours'; 
 import { Session } from '../../services/session'; 
@@ -27,25 +27,29 @@ envoyer() {
   this.form.reset();
 } 
   private session = inject(Session); 
+  private fb  = inject(FormBuilder);
   
   @Input() id = '';          // reçoit le :id de l'URL 
   confirmation = ''; 
   
   form = new FormGroup({ 
-    nom: new FormControl('', [Validators.required, nomComplet]), 
-    email: new FormControl('', [Validators.required, Validators.email]), 
-    telephone: new FormControl('', [Validators.pattern(/^[0-9]{8}$/)]), 
-    niveau: new FormControl('', [Validators.required]), 
-    motivation: new FormControl('', [Validators.required, Validators.minLength(20)]), 
-    conditions: new FormControl(false, [Validators.requiredTrue]), 
+    nom: this.fb.control('', [Validators.required, nomComplet]), 
+    email: this.fb.control('', [Validators.required, Validators.email]), 
+    telephone: this.fb.control('', [Validators.pattern(/^[0-9]{8}$/)]), 
+    niveau: this.fb.control('', [Validators.required]), 
+    motivation: this.fb.control('', [Validators.required, Validators.minLength(20)]), 
+    conditions: this.fb.control(false, [Validators.requiredTrue]), 
   }); 
   get cours(): Cours | undefined { 
     return COURS.find(c => c.id === Number(this.id)); 
   } 
-  ngOnInit() { 
-    // Pré-remplit le nom avec celui de l'utilisateur connecté 
-    this.form.patchValue({ nom: this.session.nom() }); 
-  } 
+ nbCaracteres = 0;
+ ngOnInit() {
+  this.form.patchValue({ nom: this.session.nom() });
+  this.motivation.valueChanges.subscribe(v => {
+    this.nbCaracteres = v?.length ?? 0;
+  });
+}
   get nom() { return this.form.controls.nom; } 
   get email() { return this.form.controls.email; } 
   get telephone() { return this.form.controls.telephone; } 
