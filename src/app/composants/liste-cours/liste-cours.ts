@@ -7,14 +7,13 @@ import { PlacesRestantesPipe } from '../../pipes/places-restantes-pipe';
 import { TronquerPipe } from '../../pipes/tronquer-pipe';
 import { Cours, COURS } from '../../donnees/cours';
 import { RouterLink } from '@angular/router';
-
 @Component({
   selector: 'app-liste-cours',
   imports: [FormsModule, RouterLink, FiltreCoursPipe, TriCoursPipe, UpperCasePipe, PlacesRestantesPipe, TronquerPipe],
   templateUrl: './liste-cours.html',
   styleUrl: './liste-cours.css'
 })
-export class ListeCours {
+export class ListeCours{
   recherche = '';
   tri: 'asc' | 'desc' = 'asc';
   @Output() coursSelectionne = new EventEmitter<Cours>();
